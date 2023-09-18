@@ -3,7 +3,6 @@ import {  createContext } from "react";
 const CartContext=createContext(
     {
         items:[],
-        totalQuantity:0,
         totalAmount:0,
         addItem:(item)=>{},
         removeItem:(id)=>{}

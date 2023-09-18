@@ -1,14 +1,31 @@
-.heading{
+/* HomePage.module.css */
+.heading {
     display: flex;
-    color:darkcyan;
-    position: relative;
+    align-items: center;
     justify-content: center;
+    color: darkcyan;
     height: 20vh;
-    
-}
-.image{
+    font-size: 2rem;
+  }
+  
+  .imageContainer {
     display: flex;
-    position: relative;
-    justify-content: center;
-    height: 30vw;
-}
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+  
+  .image {
+    flex: 0 0 calc(50% - 1rem); /* Half the width with margin */
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+  }
+  
+  /* Media query for screens up to 768px (typical mobile screens) */
+  @media (max-width: 768px) {
+    .image {
+      flex: 0 0 100%; /* Full width on mobile */
+    }
+  }
+  

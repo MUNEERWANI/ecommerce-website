@@ -1,40 +1,45 @@
-import React from 'react';
-import { Modal,Button } from 'react-bootstrap';
-import Header from '../header/Header';
+import React,{useContext, useEffect} from 'react';
+import VerticalModal from './VerticalModal';
+import CartContext from '../../context/cartContext';
+import CartItems from './CartItems';
+
+
 
 const Cart = (props) => {
-  const cartItems = (
-    <ul>
-      {[
-        {
-          id: 'c1',
-          name: 'sushi',
-          quantity: 2,
-          price: 12,
-        },
-      ].map((item) => (
-        <li key={item.id}>{item.name}</li>
-      ))}
-    </ul>
+  const cartCtx=useContext(CartContext);
+  const totalAmount=`$${cartCtx.totalAmount.toFixed(2)}`;
+  const cartItemRemoveHandler=(id)=>{
+    cartCtx.removeItem(id);
+    };
+const cartItemAddHandler=(item)=>{
+    cartCtx.addItem({
+      id: item.id,
+      title: item.title,
+      totalQuantity: 1,
+      price: item.price,    });
+}  
+useEffect(()=>{
+
+},[props.cartData,cartCtx])
+
+console.log(cartCtx.items)
+const cartItems = cartCtx.items.map((item) => {
+  console.log(cartCtx.items)
+  return (
+    <CartItems
+      key={item.id}
+      title={item.title}
+      totalQuantity={item.totalQuantity}
+      price={item.price}
+      onAdd={() => cartItemAddHandler(item)}
+      onRemove={() => cartItemRemoveHandler(item.id)}
+    />
   );
+});
+console.log(cartItems)
 
   return (
-    <Modal show={props.show} onHide={props.onHide}>
-    <Modal.Header closeButton>
-      <Modal.Title>Cart</Modal.Title>
-    </Modal.Header>
-    <Modal.Body>
-      {cartItems}
-      <div>
-        <span>Total amount</span>
-        <span>34.34</span>
-      </div>
-    </Modal.Body>
-    <Modal.Footer>
-      <Button onClick={props.onHide}>Close</Button>
-      <Button>Purchase</Button>
-    </Modal.Footer>
-  </Modal>
+    <><VerticalModal show={props.show} onHide={props.onHide} cartItems={cartItems} totalAmount={totalAmount}/></>
   );
 };
 
